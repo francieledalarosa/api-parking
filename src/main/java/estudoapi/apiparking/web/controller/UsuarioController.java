@@ -2,6 +2,9 @@ package estudoapi.apiparking.web.controller;
 
 import estudoapi.apiparking.entity.Usuario;
 import estudoapi.apiparking.service.UsuarioService;
+import estudoapi.apiparking.web.dto.UsuarioCreateDto;
+import estudoapi.apiparking.web.dto.UsuarioResponseDto;
+import estudoapi.apiparking.web.dto.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +20,10 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario>create(@RequestBody Usuario usuario) {
-        Usuario user = usuarioService.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<UsuarioResponseDto
+            >create(@RequestBody UsuarioCreateDto usuario) {
+        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(usuario));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
 
     @GetMapping("/{id}")
