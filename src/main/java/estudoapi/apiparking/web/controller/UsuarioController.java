@@ -4,6 +4,7 @@ import estudoapi.apiparking.entity.Usuario;
 import estudoapi.apiparking.service.UsuarioService;
 import estudoapi.apiparking.web.dto.UsuarioCreateDto;
 import estudoapi.apiparking.web.dto.UsuarioResponseDto;
+import estudoapi.apiparking.web.dto.UsuarioSenhaDto;
 import estudoapi.apiparking.web.dto.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,9 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Usuario>updatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario user = usuarioService.editarsenha(id, usuario.getPassword());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UsuarioResponseDto>updatePassword(@PathVariable Long id, @RequestBody UsuarioSenhaDto dto) {
+        Usuario user = usuarioService.editarsenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha() );
+        return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 
     @GetMapping
