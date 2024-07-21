@@ -6,6 +6,7 @@ import estudoapi.apiparking.web.dto.UsuarioCreateDto;
 import estudoapi.apiparking.web.dto.UsuarioResponseDto;
 import estudoapi.apiparking.web.dto.UsuarioSenhaDto;
 import estudoapi.apiparking.web.dto.mapper.UsuarioMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDto
-            >create(@RequestBody UsuarioCreateDto usuario) {
+            >create(@Valid @RequestBody UsuarioCreateDto usuario) {
         Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(usuario));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
@@ -34,7 +35,7 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDto>updatePassword(@PathVariable Long id, @RequestBody UsuarioSenhaDto dto) {
+    public ResponseEntity<UsuarioResponseDto>updatePassword(@PathVariable Long id,@Valid @RequestBody UsuarioSenhaDto dto) {
         Usuario user = usuarioService.editarsenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha() );
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
