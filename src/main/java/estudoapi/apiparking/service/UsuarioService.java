@@ -1,6 +1,7 @@
 package estudoapi.apiparking.service;
 
 import estudoapi.apiparking.entity.Usuario;
+import estudoapi.apiparking.exception.EntityNotFoundException;
 import estudoapi.apiparking.exception.UsernameUniqueViolationException;
 import estudoapi.apiparking.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,14 @@ public class UsuarioService {
         }
 
     }
+
     @Transactional(readOnly = true)
     public Usuario buscarporId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado.")
-        );
+                () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado.", id)
+                ));
     }
+
     @Transactional
     public Usuario editarsenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
         if(!novaSenha.equals(confirmaSenha)){
