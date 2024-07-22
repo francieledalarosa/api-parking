@@ -44,6 +44,7 @@ public class UsuarioService {
         user.setPassword(novaSenha);
         return user;
     }
+    
     @Transactional(readOnly = true)
     public List<Usuario> buscarusuarios() {
         return usuarioRepository.findAll();
