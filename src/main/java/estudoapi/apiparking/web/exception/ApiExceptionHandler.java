@@ -1,6 +1,8 @@
 package estudoapi.apiparking.web.exception;
 
 import estudoapi.apiparking.exception.EntityNotFoundException;
+import estudoapi.apiparking.exception.IncorrectPasswordException;
+import estudoapi.apiparking.exception.PasswordMismatchException;
 import estudoapi.apiparking.exception.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +47,23 @@ public class ApiExceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMensage(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
 
+    }
+    @ExceptionHandler(IncorrectPasswordException.class)
+    public ResponseEntity<ErrorMensage> handleIncorrectPasswordException(IncorrectPasswordException ex, HttpServletRequest request) {
+        log.error("Api error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMensage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
+    }
+
+    @ExceptionHandler(PasswordMismatchException.class)
+    public ResponseEntity<ErrorMensage> handlePasswordMismatchException(PasswordMismatchException ex, HttpServletRequest request) {
+        log.error("Api error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMensage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
 
 

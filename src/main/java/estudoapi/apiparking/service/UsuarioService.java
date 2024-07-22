@@ -2,6 +2,8 @@ package estudoapi.apiparking.service;
 
 import estudoapi.apiparking.entity.Usuario;
 import estudoapi.apiparking.exception.EntityNotFoundException;
+import estudoapi.apiparking.exception.IncorrectPasswordException;
+import estudoapi.apiparking.exception.PasswordMismatchException;
 import estudoapi.apiparking.exception.UsernameUniqueViolationException;
 import estudoapi.apiparking.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,16 +36,21 @@ public class UsuarioService {
 
     @Transactional
     public Usuario editarsenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
-        if(!novaSenha.equals(confirmaSenha)){
-            throw  new RuntimeException("Senha nova não confere com confirmação");
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+
+        if (!senhaAtual.equals(usuario.getPassword())) {
+            throw new IncorrectPasswordException("Senha atual incorreta");
         }
-        Usuario user = buscarporId(id);
-        if(!user.getPassword().equals(senhaAtual)){
-            throw  new RuntimeException("Senha atual não confere");
+
+        if (!novaSenha.equals(confirmaSenha)) {
+            throw new PasswordMismatchException("A nova senha e a confirmação não coincidem");
         }
-        user.setPassword(novaSenha);
-        return user;
+
+        usuario.setPassword(novaSenha);
+        return usuarioRepository.save(usuario);
     }
+
     
     @Transactional(readOnly = true)
     public List<Usuario> buscarusuarios() {

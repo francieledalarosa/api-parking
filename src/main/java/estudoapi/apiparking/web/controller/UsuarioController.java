@@ -58,7 +58,7 @@ public class UsuarioController {
 
     @Operation(summary = "Alterar senha do usuário",
             responses = {
-                    @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso!",
+                    @ApiResponse(responseCode = "200", description = "Senha atualizada com sucesso!",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
                     @ApiResponse(responseCode = "400", description = "Senha não confere!",
                             content = @Content(mediaType = "application/json",  schema = @Schema(implementation = ErrorMensage.class))),
