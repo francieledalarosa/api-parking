@@ -1,5 +1,6 @@
 package estudoapi.apiparking.web.exception;
 
+import estudoapi.apiparking.exception.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,5 +24,16 @@ public class ApiExceptionHandler {
                 .body(new ErrorMensage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo(s) inválido(s)", result));
         
     }
+    @ExceptionHandler( UsernameUniqueViolationException.class)
+    public ResponseEntity<ErrorMensage> methodArgumentNotValidException(RuntimeException ex,
+                                                                        HttpServletRequest request){
+        log.error("Api error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMensage(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
+
+    }
+
 
 }
