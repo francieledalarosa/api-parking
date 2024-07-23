@@ -38,14 +38,12 @@ public class ApiExceptionHandler {
 
     }
     @ExceptionHandler( UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMensage> uniqueViolation
-            (RuntimeException ex,
-                                                                        HttpServletRequest request){
+    public ResponseEntity<ErrorMensage> uniqueViolation(UsernameUniqueViolationException ex, HttpServletRequest request){
         log.error("Api error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMensage(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
+                .body(new ErrorMensage(request, HttpStatus.CONFLICT, ex.getMessage()));
 
     }
     @ExceptionHandler(IncorrectPasswordException.class)
