@@ -75,7 +75,7 @@ public class UsuarioController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Usuários encontrados com sucesso!",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
-                    @ApiResponse(responseCode = "404", description = "Nenhum usuário encontrado!",
+                    @ApiResponse(responseCode = "200", description = "Lista vazia!",
                             content = @Content(mediaType = "application/json",  schema = @Schema(implementation = ErrorMensage.class)))
             })
     @GetMapping
