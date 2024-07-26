@@ -69,6 +69,7 @@ public class UsuarioController {
             })
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     public ResponseEntity<UsuarioResponseDto>updatePassword(@PathVariable Long id,@Valid @RequestBody UsuarioSenhaDto dto) {
         Usuario user = usuarioService.editarsenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha() );
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
