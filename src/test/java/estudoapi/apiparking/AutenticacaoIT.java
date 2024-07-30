@@ -34,7 +34,7 @@ public class AutenticacaoIT {
     }
 
     @Test
-    public void autenticar_ComCredenciaisInvalidas_REtornarErrorMensagecomStatus400() {
+    public void autenticar_ComCredenciaisInvalidas_RetornarErrorMensagecomStatus400() {
         ErrorMensage responseBody = testClient
                 .post()
                 .uri("/api/v1/auth")
@@ -60,5 +60,34 @@ public class AutenticacaoIT {
 
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    public void autenticar_ComCredenciaisInvalidas_RetornarErrorMensagecomStatus422() {
+        ErrorMensage responseBody = testClient
+                .post()
+                .uri("/api/v1/auth")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioLoginDto("maria@gmail.", "123456"))
+                .exchange()
+                .expectStatus().isEqualTo()
+                .expectBody(ErrorMensage.class)
+                .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+        testClient
+                .post()
+                .uri("/api/v1/auth")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioLoginDto("mariaz@gmail.com", "12345678"))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMensage.class)
+                .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
     }
 }
