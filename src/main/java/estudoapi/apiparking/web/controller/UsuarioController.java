@@ -71,8 +71,6 @@ public class UsuarioController {
                     @ApiResponse(responseCode = "400", description = "Senha não confere!",
                             content = @Content(mediaType = "application/json",  schema = @Schema(implementation = ErrorMensage.class))),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão de accesso!",
-                            content = @Content(mediaType = "application/json",  schema = @Schema(implementation = ErrorMensage.class))),
-                    @ApiResponse(responseCode = "404", description = "Usuário não encontrado!",
                             content = @Content(mediaType = "application/json",  schema = @Schema(implementation = ErrorMensage.class)))
             })
 
