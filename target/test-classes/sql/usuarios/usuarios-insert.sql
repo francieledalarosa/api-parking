@@ -1,2 +1,2 @@
 insert into USUARIOS (id, username, password, role) values
-(100, 'mariaz@gamil.com','123456' ,'ROLE_ADMIN'),(200, 'joaoz@gmail.com', '654321', 'ROLE_CLIENTE'), (300, 'ze@gmail.com', '123456', 'ROLE_CLIENTE');
+(100, 'mariaz@gmail.com','$2a$12$4xrYMfvBObxNanUz5uXNz.vKL/0wIYCn6GidPkB5QmG7ei3fmAoPa' ,'ROLE_ADMIN'),(200, 'joaoz@gmail.com', '$2a$12$4xrYMfvBObxNanUz5uXNz.vKL/0wIYCn6GidPkB5QmG7ei3fmAoPa', 'ROLE_CLIENTE'), (300, 'ze@gmail.com', '$2a$12$4xrYMfvBObxNanUz5uXNz.vKL/0wIYCn6GidPkB5QmG7ei3fmAoPa', 'ROLE_CLIENTE');
