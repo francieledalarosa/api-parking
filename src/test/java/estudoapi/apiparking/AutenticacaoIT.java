@@ -70,7 +70,7 @@ public class AutenticacaoIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new UsuarioLoginDto("maria@gmail.", "123456"))
                 .exchange()
-                .expectStatus().isEqualTo()
+                .expectStatus().isEqualTo(422)
                 .expectBody(ErrorMensage.class)
                 .returnResult().getResponseBody();
 
