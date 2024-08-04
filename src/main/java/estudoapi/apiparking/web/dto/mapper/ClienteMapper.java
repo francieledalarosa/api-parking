@@ -2,6 +2,7 @@ package estudoapi.apiparking.web.dto.mapper;
 
 import estudoapi.apiparking.entity.Cliente;
 import estudoapi.apiparking.web.dto.ClienteCreateDto;
+import estudoapi.apiparking.web.dto.ClienteResponseDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
