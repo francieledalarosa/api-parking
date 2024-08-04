@@ -1,4 +1,4 @@
-package estudoapi.apiparking.web.dto.mapper;
+package estudoapi.apiparking.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
