@@ -86,7 +86,7 @@ public class VagaIT {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("id").isEqualTo(10)
+                .jsonPath("id").isEqualTo(1)
                 .jsonPath("codigo").isEqualTo("A-01")
                 .jsonPath("status").isEqualTo("LIVRE");
 
