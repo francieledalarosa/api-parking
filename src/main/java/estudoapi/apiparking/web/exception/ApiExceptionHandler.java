@@ -1,9 +1,6 @@
 package estudoapi.apiparking.web.exception;
 
-import estudoapi.apiparking.exception.EntityNotFoundException;
-import estudoapi.apiparking.exception.IncorrectPasswordException;
-import estudoapi.apiparking.exception.PasswordMismatchException;
-import estudoapi.apiparking.exception.UsernameUniqueViolationException;
+import estudoapi.apiparking.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -50,8 +47,8 @@ public class ApiExceptionHandler {
                 .body(new ErrorMensage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo(s) inválido(s)", result));
 
     }
-    @ExceptionHandler( UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMensage> uniqueViolation(UsernameUniqueViolationException ex, HttpServletRequest request){
+    @ExceptionHandler({ UsernameUniqueViolationException.class, CpfUniqueViolation.class})
+    public ResponseEntity<ErrorMensage> uniqueViolation(RuntimeException ex, HttpServletRequest request){
         log.error("Api error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
